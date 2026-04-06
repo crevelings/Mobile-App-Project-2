@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="app_name">AMISOS-R Survey</string>
+    <string name="back">Back</string>
+
+    <string name="no_survey_results_yet">You have not taken the survey yet.</string>
+    <string name="overdue">It has been more than 3 days since your last survey. Please take it again as soon as possible.</string>
+    <string name="reminder_target">It has been about 3 days since your last survey. It is time to take it again.</string>
+    <string name="reminder_start">You are getting close to 3 days since your last survey. Consider taking it now.</string>
+    <string name="last_completed">Last completed: %1$s</string>
+    <string name="last_score">Last score: %1$d</string>
+    <string name="take_survey">Take Survey</string>
+    <string name="view_history">View History</string>
+
+    <string name="no_option_selected">You must select an option</string>
+    <string name="invalid_option_selected">You have selected an invalid option</string>
+    <string name="other">Other</string>
+    <string name="answer_all">Please answer all questions before submitting</string>
+    <string name="submit">Submit</string>
+
+    <string name="history">History</string>
+    <string name="no_history">No survey results yet.</string>
+    <string name="date">Date: %1$s</string>
+    <string name="score">Score: %1$d</string>
+    <string name="loading">Loading...</string>
+    <string name="survey_results_from">Survey results from %1$s</string>
+</resources>
