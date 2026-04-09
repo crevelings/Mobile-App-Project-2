@@ -1,3 +1,5 @@
 .gradle/*
 build/reports/*
 composeApp/build/*
+.DS_Store
+.idea/
