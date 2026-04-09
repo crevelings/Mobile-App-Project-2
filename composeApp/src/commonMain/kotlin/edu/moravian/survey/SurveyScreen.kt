@@ -8,12 +8,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
+import org.jetbrains.compose.resources.stringResource
+import surveytaker.composeapp.generated.resources.Res
 
 /**
  * The destination for the survey screen that can be filled out.
@@ -30,6 +39,15 @@ fun SurveyScreen(
 ) {
     // TODO: complete (may need to add parameter(s))
     val scope = rememberCoroutineScope()
+    val vm: SurveyVM = viewModel()
+
+    val survey by vm.survey.collectAsState()
+    val showErrors by vm.showErrors.collectAsState()
+
+
+    LaunchedEffect(Unit) {
+        vm.initialize(null)  // For now, pass null (no previous survey)
+    }
 
     Column(
         modifier = Modifier
@@ -38,6 +56,28 @@ fun SurveyScreen(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         // TODO: complete
+        survey?.let { currentSurvey ->
+        SurveyView(
+            survey = currentSurvey,
+            showErrors = showErrors,
+            onAnswer = { updatedSurvey ->
+                vm.updateSurvey(updatedSurvey)
+            }
+        )
+    }
+        Button(
+            onClick = {
+                if (vm.attemptSubmit()) {
+                    scope.launch {
+                        vm.currentQuestions.save()  // TODO: Implement save()
+                        onCompleted()
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        ) {
+            Text("submit")
+        }
     }
 }
 
