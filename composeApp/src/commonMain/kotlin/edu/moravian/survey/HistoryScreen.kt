@@ -15,7 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import edu.moravian.survey.data.DummyHasId
+import edu.moravian.survey.data.SurveyResult
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource
 import surveytaker.composeapp.generated.resources.*
@@ -43,7 +43,7 @@ fun HistoryScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        val entries = emptyList<DummyHasId>() // TODO: load these (and change the class)
+        val entries = emptyList<SurveyResult>() // TODO: load these (and change the class)
 
         Text(stringResource(Res.string.history), style = MaterialTheme.typography.headlineSmall)
 

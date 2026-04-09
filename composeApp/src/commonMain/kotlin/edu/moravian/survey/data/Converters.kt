@@ -14,14 +14,19 @@ class Converters {
      * integer to store the set.
      */
     @TypeConverter
-    fun fromSet(value: Set<Int>): Int = value.map { 1 shl it }.reduce { acc, i -> acc or i }
+    fun fromSet(value: Set<Int>?): Int? {
+        if (value == null) return null
+        if (value.isEmpty()) return 0
+        return value.fold(0) { acc, i -> acc or (1 shl i) }
+    }
 
     /**
      * Convert an integer back to a set of integers by checking which bits are set.
      */
     @TypeConverter
-    fun toSet(value: Int): Set<Int> {
-        var remaining = value
+    fun toSet(value: Int?): Set<Int>? {
+        if (value == null) return null
+        var remaining: Int = value
         val result = mutableSetOf<Int>()
         var bitIndex = 0
         while (remaining != 0) {
