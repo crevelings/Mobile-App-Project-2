@@ -1,8 +1,11 @@
 package edu.moravian.survey.data
 
-// TODO: This is a dummy interface to allow us me to provide some code for you to work with
-//   You should remove it eventually once you have your actual data models defined
-//   (your data model classes should have an id property though)
-interface DummyHasId {
-    val id: Long
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+
+@Database(entities = [SurveyResult::class, SurveyAnswer::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class SurveyDatabase : RoomDatabase() {
+    abstract fun surveyDao(): SurveyDao
 }
