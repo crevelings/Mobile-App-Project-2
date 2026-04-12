@@ -13,8 +13,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import edu.moravian.survey.data.SurveyDatabase
 import edu.moravian.survey.data.SurveyResult
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource
@@ -33,17 +36,20 @@ data object HistoryScreen
  */
 @Composable
 fun HistoryScreen(
-    onOpenSurvey: (Long) -> Unit,
+    database: SurveyDatabase,
+    onOpenSurvey: (Long) -> Unit
 ) {
-    // TODO: complete (may need to add parameter(s))
+    val entries by database.surveyDao().getAllResults().collectAsState(initial = emptyList())
+
     Column(
-        modifier = Modifier
-            .safeContentPadding()
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .safeContentPadding()
+                .fillMaxSize()
+                .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        val entries = emptyList<SurveyResult>() // TODO: load these (and change the class)
+        // val entries = emptyList<SurveyResult>() // TODO: load these (and change the class)
 
         Text(stringResource(Res.string.history), style = MaterialTheme.typography.headlineSmall)
 
@@ -53,7 +59,9 @@ fun HistoryScreen(
             items(entries, key = { it.id }) { result ->
                 Card(modifier = Modifier.fillMaxWidth().clickable { onOpenSurvey(result.id) }) {
                     Column(modifier = Modifier.padding(12.dp)) {
-                        // TODO: complete
+                        Text("Score: ${result.score}", style = MaterialTheme.typography.bodyLarge)
+                        Text(formatEpochMillis(result.timestamp), style = MaterialTheme.typography.bodyMedium)
+                    // TODO: complete
                     }
                 }
             }

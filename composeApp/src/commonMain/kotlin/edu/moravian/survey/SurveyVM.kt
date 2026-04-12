@@ -27,6 +27,11 @@ class SurveyVM : ViewModel() {
 
     fun initialize(mostRecentSurvey: Survey?) {
         println("🟢 initialize() called with mostRecentSurvey = ${mostRecentSurvey != null}")
+
+        if (_survey.value != null && _survey.value != AMISOS_R_SURVEY) {
+            println("✅ Survey already initialized, skipping")
+            return
+        }
         if (mostRecentSurvey != null) {
             val sounds = mostRecentSurvey.getOrNull(0)
             val emotions = mostRecentSurvey.getOrNull(1)

@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import edu.moravian.survey.data.SurveyDatabase
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource
 import surveytaker.composeapp.generated.resources.*
@@ -34,6 +35,7 @@ data class ViewSurveyScreenDest(
  */
 @Composable
 fun ViewSurveyScreen(
+    database: SurveyDatabase,
     surveyId: Long,
 ) {
     // TODO: complete (may need to add parameter(s))

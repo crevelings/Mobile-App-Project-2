@@ -9,3 +9,7 @@ import androidx.room.TypeConverters
 abstract class SurveyDatabase : RoomDatabase() {
     abstract fun surveyDao(): SurveyDao
 }
+
+fun getRoomDatabase(
+    builder: RoomDatabase.Builder<SurveyDatabase>,
+): SurveyDatabase = builder.build()

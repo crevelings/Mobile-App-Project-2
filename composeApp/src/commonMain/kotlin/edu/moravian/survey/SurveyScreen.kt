@@ -19,6 +19,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import edu.moravian.survey.data.SurveyDatabase
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource
@@ -35,6 +37,7 @@ data object SurveyScreen
  */
 @Composable
 fun SurveyScreen(
+    database: SurveyDatabase,
     onCompleted: () -> Unit,
 ) {
     // TODO: complete (may need to add parameter(s))
@@ -44,37 +47,48 @@ fun SurveyScreen(
     val survey by vm.survey.collectAsState()
     val showErrors by vm.showErrors.collectAsState()
 
-
     LaunchedEffect(Unit) {
-        vm.initialize(null)  // For now, pass null (no previous survey)
+        val dao = database.surveyDao()
+        val latestSurveyId = dao.getLatestResult().firstOrNull()?.id
+
+        if (latestSurveyId != null) {
+            val loadedSurvey = AMISOS_R_SURVEY.load(latestSurveyId, dao)
+            vm.initialize(loadedSurvey)
+        } else {
+            vm.initialize(null)
+        }
     }
 
     Column(
-        modifier = Modifier
-            .safeContentPadding()
-            .fillMaxSize(),
+        modifier =
+            Modifier
+                .safeContentPadding()
+                .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         // TODO: complete
         survey?.let { currentSurvey ->
-        SurveyView(
-            survey = currentSurvey,
-            showErrors = showErrors,
-            onAnswer = { updatedSurvey ->
-                vm.updateSurvey(updatedSurvey)
-            }
-        )
-    }
+            SurveyView(
+                survey = currentSurvey,
+                showErrors = showErrors,
+                onAnswer = { updatedSurvey ->
+                    vm.updateSurvey(updatedSurvey)
+                },
+            )
+        }
         Button(
             onClick = {
                 if (vm.attemptSubmit()) {
                     scope.launch {
-                        vm.currentQuestions.save()  // TODO: Implement save()
+                        vm.currentQuestions.save(
+                            dao = database.surveyDao(),
+                            timestamp = currentTimeMillis(),
+                        )
                         onCompleted()
                     }
                 }
             },
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
         ) {
             Text("submit")
         }
