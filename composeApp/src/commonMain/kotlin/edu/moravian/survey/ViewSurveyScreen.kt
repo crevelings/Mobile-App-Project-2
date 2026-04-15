@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,11 +40,19 @@ fun ViewSurveyScreen(
     database: SurveyDatabase,
     surveyId: Long,
 ) {
-    // TODO: complete (may need to add parameter(s))
     var loading by remember { mutableStateOf(true) }
     var survey by remember { mutableStateOf(AMISOS_R_SURVEY) }
+    var score by remember { mutableStateOf(0) }
+    var timestamp by remember { mutableStateOf(0L) }
+
     LaunchedEffect(surveyId) {
-        // TODO: load the data
+        val dao = database.surveyDao()
+        val result = dao.getResultById(surveyId)
+        if (result != null) {
+            score = result.score
+            timestamp = result.timestamp
+            survey = AMISOS_R_SURVEY.load(surveyId, dao)
+        }
         loading = false
     }
 
@@ -57,10 +67,20 @@ fun ViewSurveyScreen(
     Column(
         modifier = Modifier
             .safeContentPadding()
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        // TODO: complete
+        Text(
+            text = "Survey from ${formatEpochMillis(timestamp)}",
+            style = MaterialTheme.typography.headlineSmall
+        )
+        Text(
+            text = "Total Score: $score",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+
         SurveyView(survey, false, null)
     }
 }
