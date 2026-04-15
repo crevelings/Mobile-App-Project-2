@@ -10,6 +10,7 @@
     <string name="last_completed">Last completed: %1$s</string>
     <string name="last_score">Last score: %1$d</string>
     <string name="take_survey">Take Survey</string>
+    <string name="load_previous">Previous Survey</string>
     <string name="view_history">View History</string>
 
     <string name="no_option_selected">You must select an option</string>

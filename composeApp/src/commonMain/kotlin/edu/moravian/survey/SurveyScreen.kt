@@ -30,7 +30,7 @@ import surveytaker.composeapp.generated.resources.Res
  * The destination for the survey screen that can be filled out.
  */
 @Serializable
-data object SurveyScreen
+data class SurveyScreen(val loadPrevious: Boolean = false)
 
 /**
  * Displays the survey screen, which consists of a column with the survey view and a submit button.
@@ -38,6 +38,7 @@ data object SurveyScreen
 @Composable
 fun SurveyScreen(
     database: SurveyDatabase,
+    loadPrevious: Boolean = false,
     onCompleted: () -> Unit,
 ) {
     // TODO: complete (may need to add parameter(s))
@@ -47,13 +48,17 @@ fun SurveyScreen(
     val survey by vm.survey.collectAsState()
     val showErrors by vm.showErrors.collectAsState()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(loadPrevious) {
         val dao = database.surveyDao()
         val latestSurveyId = dao.getLatestResult().firstOrNull()?.id
 
         if (latestSurveyId != null) {
             val loadedSurvey = AMISOS_R_SURVEY.load(latestSurveyId, dao)
-            vm.initialize(loadedSurvey)
+            if (loadPrevious) {
+                vm.loadFullSurvey(loadedSurvey)
+            } else {
+                vm.initialize(loadedSurvey)
+            }
         } else {
             vm.initialize(null)
         }

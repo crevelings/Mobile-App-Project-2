@@ -31,6 +31,7 @@ data object HomeScreen
 @Composable
 fun HomeScreen(
     onTakeSurvey: () -> Unit,
+    onLoadPrevious: () -> Unit,
     onOpenHistory: () -> Unit,
 ) {
     // TODO: complete (may need to add parameter(s))
@@ -44,6 +45,7 @@ fun HomeScreen(
         StatusText()
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = onTakeSurvey) { Text(stringResource(Res.string.take_survey)) }
+        Button(onClick = onLoadPrevious) { Text(stringResource(Res.string.load_previous)) }
         TextButton(onClick = onOpenHistory) { Text(stringResource(Res.string.view_history)) }
     }
 }

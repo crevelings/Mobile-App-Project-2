@@ -48,15 +48,19 @@ fun App(database: SurveyDatabase) {
             ) {
                 composable<HomeScreen> {
                     HomeScreen(
-                        onTakeSurvey = { navController.navigate(SurveyScreen) },
+                        onTakeSurvey = { navController.navigate(SurveyScreen()) },
+                        onLoadPrevious = { navController.navigate(SurveyScreen(loadPrevious = true)) },
                         onOpenHistory = { navController.navigate(HistoryScreen) },
                     )
                 }
-                composable<SurveyScreen> {
+                composable<SurveyScreen> { navBackStackEntry ->
+                    val dest = navBackStackEntry.toRoute<SurveyScreen>()
                     SurveyScreen(
                         database = database,
+                        loadPrevious = dest.loadPrevious,
                         onCompleted = { navController.navigateUp() }
-                    )  }
+                    )
+                }
                 composable<HistoryScreen> {
                     HistoryScreen(
                         database = database,

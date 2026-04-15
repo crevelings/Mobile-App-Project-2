@@ -51,6 +51,14 @@ class SurveyVM : ViewModel() {
         _showErrors.value = false
     }
 
+    /**
+     * Loads all answers from the given survey into the current survey.
+     */
+    fun loadFullSurvey(previousSurvey: Survey) {
+        _survey.value = previousSurvey
+        _showErrors.value = false
+    }
+
     fun updateSurvey(updatedSurvey: Survey) {
         println("🟡 updateSurvey() called - first question answer: ${updatedSurvey.questions.firstOrNull()?.answer}")
         _survey.value = updatedSurvey
