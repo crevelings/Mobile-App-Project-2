@@ -10,5 +10,5 @@ import androidx.room.PrimaryKey
 data class SurveyResult(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val timestamp: Long,
-    val score: Int
+    val score: Int,
 )

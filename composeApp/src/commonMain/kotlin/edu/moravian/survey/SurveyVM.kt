@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
  * Like GameVM, this must have a parameter-less constructor and extend ViewModel().
  */
 class SurveyVM : ViewModel() {
-
     init {
         val random = (0..1000).random()
         println("🔵 ViewModel CREATED - ID: $random")

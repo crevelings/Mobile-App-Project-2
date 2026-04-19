@@ -27,7 +27,10 @@ interface SurveyDao {
     suspend fun getAnswersForSurvey(surveyId: Long): List<SurveyAnswer>
 
     @Transaction
-    suspend fun saveSurvey(result: SurveyResult, answers: List<SurveyAnswer>) {
+    suspend fun saveSurvey(
+        result: SurveyResult,
+        answers: List<SurveyAnswer>,
+    ) {
         val id = insertSurveyResult(result)
         val answersWithId = answers.map { it.copy(surveyId = id) }
         insertAnswers(answersWithId)

@@ -15,10 +15,10 @@ import androidx.room.PrimaryKey
             entity = SurveyResult::class,
             parentColumns = ["id"],
             childColumns = ["surveyId"],
-            onDelete = ForeignKey.CASCADE
-        )
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
-    indices = [Index("surveyId")]
+    indices = [Index("surveyId")],
 )
 data class SurveyAnswer(
     @PrimaryKey(autoGenerate = true) val answerId: Long = 0,
@@ -26,5 +26,5 @@ data class SurveyAnswer(
     val questionId: String,
     val singleOption: Int? = null,
     val multiOptions: Set<Int>? = null,
-    val otherText: String? = null
+    val otherText: String? = null,
 )

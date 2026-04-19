@@ -37,7 +37,7 @@ data object HistoryScreen
 @Composable
 fun HistoryScreen(
     database: SurveyDatabase,
-    onOpenSurvey: (Long) -> Unit
+    onOpenSurvey: (Long) -> Unit,
 ) {
     val entries by database.surveyDao().getAllResults().collectAsState(initial = emptyList())
 
@@ -61,7 +61,7 @@ fun HistoryScreen(
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text("Score: ${result.score}", style = MaterialTheme.typography.bodyLarge)
                         Text(formatEpochMillis(result.timestamp), style = MaterialTheme.typography.bodyMedium)
-                    // TODO: complete
+                        // TODO: complete
                     }
                 }
             }

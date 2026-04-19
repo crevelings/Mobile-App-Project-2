@@ -17,6 +17,5 @@ abstract class SurveyDatabase : RoomDatabase() {
 expect object SurveyDatabaseConstructor : RoomDatabaseConstructor<SurveyDatabase> {
     override fun initialize(): SurveyDatabase
 }
-fun getRoomDatabase(
-    builder: RoomDatabase.Builder<SurveyDatabase>,
-): SurveyDatabase = builder.build()
+
+fun getRoomDatabase(builder: RoomDatabase.Builder<SurveyDatabase>): SurveyDatabase = builder.build()

@@ -59,7 +59,7 @@ fun App(database: SurveyDatabase) {
                     SurveyScreen(
                         database = database,
                         loadPrevious = dest.loadPrevious,
-                        onCompleted = { navController.navigateUp() }
+                        onCompleted = { navController.navigateUp() },
                     )
                 }
                 composable<HistoryScreen> {
@@ -67,14 +67,14 @@ fun App(database: SurveyDatabase) {
                         database = database,
                         onOpenSurvey = { surveyId ->
                             navController.navigate(ViewSurveyScreenDest(surveyId))
-                        }
+                        },
                     )
                 }
                 composable<ViewSurveyScreenDest> { navBackStackEntry ->
                     val surveyId = navBackStackEntry.toRoute<ViewSurveyScreenDest>().surveyId
                     ViewSurveyScreen(
                         database = database,
-                        surveyId = surveyId
+                        surveyId = surveyId,
                     )
                 }
             }
@@ -87,10 +87,11 @@ fun App(database: SurveyDatabase) {
 private fun TopAppBar(back: (() -> Unit)? = null) {
     TopAppBar(
         title = { Text(stringResource(Res.string.app_name)) },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            titleContentColor = MaterialTheme.colorScheme.onPrimary,
-        ),
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                titleContentColor = MaterialTheme.colorScheme.onPrimary,
+            ),
         navigationIcon = {
             if (back != null) {
                 Button(onClick = back) {

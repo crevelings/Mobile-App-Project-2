@@ -30,7 +30,9 @@ import surveytaker.composeapp.generated.resources.Res
  * The destination for the survey screen that can be filled out.
  */
 @Serializable
-data class SurveyScreen(val loadPrevious: Boolean = false)
+data class SurveyScreen(
+    val loadPrevious: Boolean = false,
+)
 
 /**
  * Displays the survey screen, which consists of a column with the survey view and a submit button.
@@ -43,7 +45,7 @@ fun SurveyScreen(
 ) {
     // TODO: complete (may need to add parameter(s))
     val scope = rememberCoroutineScope()
-    val vm: SurveyVM = viewModel{SurveyVM()}
+    val vm: SurveyVM = viewModel { SurveyVM() }
 
     val survey by vm.survey.collectAsState()
     val showErrors by vm.showErrors.collectAsState()

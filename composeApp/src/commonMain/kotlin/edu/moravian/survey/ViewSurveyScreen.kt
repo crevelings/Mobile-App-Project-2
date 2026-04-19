@@ -65,20 +65,21 @@ fun ViewSurveyScreen(
     }
 
     Column(
-        modifier = Modifier
-            .safeContentPadding()
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .safeContentPadding()
+                .fillMaxSize()
+                .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
             text = "Survey from ${formatEpochMillis(timestamp)}",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
         Text(
             text = "Total Score: $score",
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
 
         SurveyView(survey, false, null)
