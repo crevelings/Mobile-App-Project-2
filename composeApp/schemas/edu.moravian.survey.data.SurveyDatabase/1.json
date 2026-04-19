@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ad2aeb5770fac09092e6516d1aeaede2",
+    "entities": [
+      {
+        "tableName": "SurveyResult",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `score` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "answers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`answerId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `surveyId` INTEGER NOT NULL, `questionId` TEXT NOT NULL, `singleOption` INTEGER, `multiOptions` INTEGER, `otherText` TEXT, FOREIGN KEY(`surveyId`) REFERENCES `SurveyResult`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "answerId",
+            "columnName": "answerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "surveyId",
+            "columnName": "surveyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "singleOption",
+            "columnName": "singleOption",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "multiOptions",
+            "columnName": "multiOptions",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "otherText",
+            "columnName": "otherText",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "answerId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_answers_surveyId",
+            "unique": false,
+            "columnNames": [
+              "surveyId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_answers_surveyId` ON `${TABLE_NAME}` (`surveyId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SurveyResult",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "surveyId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ad2aeb5770fac09092e6516d1aeaede2')"
+    ]
+  }
+}

@@ -43,7 +43,7 @@ fun SurveyScreen(
 ) {
     // TODO: complete (may need to add parameter(s))
     val scope = rememberCoroutineScope()
-    val vm: SurveyVM = viewModel()
+    val vm: SurveyVM = viewModel{SurveyVM()}
 
     val survey by vm.survey.collectAsState()
     val showErrors by vm.showErrors.collectAsState()

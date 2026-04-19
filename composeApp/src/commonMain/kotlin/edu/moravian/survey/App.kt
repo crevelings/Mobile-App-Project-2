@@ -48,6 +48,7 @@ fun App(database: SurveyDatabase) {
             ) {
                 composable<HomeScreen> {
                     HomeScreen(
+                        database = database,
                         onTakeSurvey = { navController.navigate(SurveyScreen()) },
                         onLoadPrevious = { navController.navigate(SurveyScreen(loadPrevious = true)) },
                         onOpenHistory = { navController.navigate(HistoryScreen) },

@@ -7,7 +7,10 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization) // ** ADDED for Navigation **
     alias(libs.plugins.ksp) // ** ADDED FOR ROOM **
-//    alias(libs.plugins.androidx.room) // ** ADDED FOR ROOM **
+    alias(libs.plugins.androidx.room) // ** ADDED FOR ROOM **
+}
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 kotlin {
