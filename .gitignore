@@ -3,3 +3,4 @@ build/reports/*
 composeApp/build/*
 .DS_Store
 .idea/
+.claude
