@@ -28,7 +28,6 @@ import surveytaker.composeapp.generated.resources.*
  */
 @Composable
 fun App(database: SurveyDatabase) {
-    // TODO: complete (may need to add parameter(s))
     val navController = rememberNavController()
     MaterialTheme {
         Scaffold(

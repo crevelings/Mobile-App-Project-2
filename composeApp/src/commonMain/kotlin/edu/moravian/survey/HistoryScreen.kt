@@ -49,11 +49,15 @@ fun HistoryScreen(
                 .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        // val entries = emptyList<SurveyResult>() // TODO: load these (and change the class)
-
         Text(stringResource(Res.string.history), style = MaterialTheme.typography.headlineSmall)
 
-        // TODO: show message if no surveys taken yet
+        if (entries.isEmpty()) {
+            Text(
+                stringResource(Res.string.no_survey_results_yet),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+        }
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(entries, key = { it.id }) { result ->
@@ -61,7 +65,6 @@ fun HistoryScreen(
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text("Score: ${result.score}", style = MaterialTheme.typography.bodyLarge)
                         Text(formatEpochMillis(result.timestamp), style = MaterialTheme.typography.bodyMedium)
-                        // TODO: complete
                     }
                 }
             }

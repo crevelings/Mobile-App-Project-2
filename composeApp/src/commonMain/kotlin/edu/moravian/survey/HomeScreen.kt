@@ -39,7 +39,6 @@ fun HomeScreen(
     onLoadPrevious: () -> Unit,
     onOpenHistory: () -> Unit,
 ) {
-    // TODO: complete (may need to add parameter(s))
     Column(
         modifier =
             Modifier

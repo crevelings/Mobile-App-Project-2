@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource
 import surveytaker.composeapp.generated.resources.Res
+import surveytaker.composeapp.generated.resources.submit
 
 /**
  * The destination for the survey screen that can be filled out.
@@ -43,7 +44,6 @@ fun SurveyScreen(
     loadPrevious: Boolean = false,
     onCompleted: () -> Unit,
 ) {
-    // TODO: complete (may need to add parameter(s))
     val scope = rememberCoroutineScope()
     val vm: SurveyVM = viewModel { SurveyVM() }
 
@@ -73,7 +73,6 @@ fun SurveyScreen(
                 .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        // TODO: complete
         survey?.let { currentSurvey ->
             SurveyView(
                 survey = currentSurvey,
@@ -97,7 +96,7 @@ fun SurveyScreen(
             },
             modifier = Modifier.fillMaxWidth().padding(16.dp),
         ) {
-            Text("submit")
+            Text(stringResource(Res.string.submit))
         }
     }
 }
