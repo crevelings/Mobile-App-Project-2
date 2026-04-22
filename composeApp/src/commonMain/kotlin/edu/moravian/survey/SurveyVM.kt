@@ -57,7 +57,6 @@ class SurveyVM : ViewModel() {
         _showErrors.value = true
 
         val questions = _survey.value?.questions ?: return false
-        val hasErrors = questions.hasErrors
         return !questions.hasErrors
     }
 
