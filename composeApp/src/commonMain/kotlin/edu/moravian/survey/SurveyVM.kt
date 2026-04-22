@@ -13,11 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
  * Like GameVM, this must have a parameter-less constructor and extend ViewModel().
  */
 class SurveyVM : ViewModel() {
-    init {
-        val random = (0..1000).random()
-        println("🔵 ViewModel CREATED - ID: $random")
-    }
-
     private val _survey = MutableStateFlow<Survey?>(AMISOS_R_SURVEY)
     val survey: StateFlow<Survey?> = _survey
 
@@ -25,10 +20,7 @@ class SurveyVM : ViewModel() {
     val showErrors: StateFlow<Boolean> = _showErrors
 
     fun initialize(mostRecentSurvey: Survey?) {
-        println("🟢 initialize() called with mostRecentSurvey = ${mostRecentSurvey != null}")
-
         if (_survey.value != null && _survey.value != AMISOS_R_SURVEY) {
-            println("✅ Survey already initialized, skipping")
             return
         }
         if (mostRecentSurvey != null) {
@@ -44,7 +36,6 @@ class SurveyVM : ViewModel() {
                     }
                 }
         } else {
-            println("⚠️ initialize() resetting to AMISOS_R_SURVEY - THIS LOSES ANSWERS!")
             _survey.value = AMISOS_R_SURVEY
         }
         _showErrors.value = false
@@ -59,17 +50,14 @@ class SurveyVM : ViewModel() {
     }
 
     fun updateSurvey(updatedSurvey: Survey) {
-        println("🟡 updateSurvey() called - first question answer: ${updatedSurvey.questions.firstOrNull()?.answer}")
         _survey.value = updatedSurvey
     }
 
     fun attemptSubmit(): Boolean {
-        println("🔴 attemptSubmit() called")
         _showErrors.value = true
 
         val questions = _survey.value?.questions ?: return false
         val hasErrors = questions.hasErrors
-        println("🔴 Has errors: $hasErrors")
         return !questions.hasErrors
     }
 

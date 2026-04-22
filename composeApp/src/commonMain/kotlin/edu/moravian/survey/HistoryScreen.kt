@@ -55,7 +55,7 @@ fun HistoryScreen(
             Text(
                 stringResource(Res.string.no_survey_results_yet),
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 16.dp),
             )
         }
 
