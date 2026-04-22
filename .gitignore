@@ -4,3 +4,4 @@ composeApp/build/*
 .DS_Store
 .idea/
 .idea/*
+local.properties
