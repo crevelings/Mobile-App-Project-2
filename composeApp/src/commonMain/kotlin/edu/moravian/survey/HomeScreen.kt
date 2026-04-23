@@ -63,26 +63,28 @@ private fun StatusText(database: SurveyDatabase) {
 
     val mostRecent = latest
 
-    if (mostRecent == null) {
-        Text(
-            stringResource(Res.string.no_survey_results_yet),
-            style = MaterialTheme.typography.bodyLarge,
-        )
-    } else {
-        Text(
-            stringResource(Res.string.last_score, mostRecent.score),
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Text(
-            stringResource(Res.string.last_completed, formatEpochMillis(mostRecent.timestamp)),
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        reminderMessage(now, mostRecent.timestamp)?.let { reminderRes ->
+    Column {
+        if (mostRecent == null) {
             Text(
-                stringResource(reminderRes),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary,
+                stringResource(Res.string.no_survey_results_yet),
+                style = MaterialTheme.typography.bodyLarge,
             )
+        } else {
+            Text(
+                stringResource(Res.string.last_score, mostRecent.score),
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Text(
+                stringResource(Res.string.last_completed, formatEpochMillis(mostRecent.timestamp)),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            reminderMessage(now, mostRecent.timestamp)?.let { reminderRes ->
+                Text(
+                    stringResource(reminderRes),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
         }
     }
 }

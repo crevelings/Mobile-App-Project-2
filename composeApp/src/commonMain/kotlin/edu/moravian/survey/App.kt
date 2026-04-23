@@ -57,8 +57,8 @@ fun App(database: SurveyDatabase) {
                     val dest = navBackStackEntry.toRoute<SurveyScreen>()
                     SurveyScreen(
                         database = database,
+                        onComplete = { navController.navigateUp() },
                         loadPrevious = dest.loadPrevious,
-                        onCompleted = { navController.navigateUp() },
                     )
                 }
                 composable<HistoryScreen> {

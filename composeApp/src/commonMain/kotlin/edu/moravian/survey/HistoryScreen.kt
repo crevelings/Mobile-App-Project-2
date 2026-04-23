@@ -49,7 +49,10 @@ fun HistoryScreen(
                 .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(stringResource(Res.string.history), style = MaterialTheme.typography.headlineSmall)
+        Text(
+            stringResource(Res.string.history),
+            style = MaterialTheme.typography.headlineSmall,
+        )
 
         if (entries.isEmpty()) {
             Text(
@@ -63,8 +66,14 @@ fun HistoryScreen(
             items(entries, key = { it.id }) { result ->
                 Card(modifier = Modifier.fillMaxWidth().clickable { onOpenSurvey(result.id) }) {
                     Column(modifier = Modifier.padding(12.dp)) {
-                        Text("Score: ${result.score}", style = MaterialTheme.typography.bodyLarge)
-                        Text(formatEpochMillis(result.timestamp), style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            "Score: ${result.score}",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            formatEpochMillis(result.timestamp),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                     }
                 }
             }

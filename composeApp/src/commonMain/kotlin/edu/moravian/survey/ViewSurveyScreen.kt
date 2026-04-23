@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -42,8 +44,8 @@ fun ViewSurveyScreen(
 ) {
     var loading by remember { mutableStateOf(true) }
     var survey by remember { mutableStateOf(AMISOS_R_SURVEY) }
-    var score by remember { mutableStateOf(0) }
-    var timestamp by remember { mutableStateOf(0L) }
+    var score by remember { mutableIntStateOf(0) }
+    var timestamp by remember { mutableLongStateOf(0L) }
 
     LaunchedEffect(surveyId) {
         val dao = database.surveyDao()

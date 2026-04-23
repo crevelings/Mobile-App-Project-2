@@ -41,11 +41,11 @@ data class SurveyScreen(
 @Composable
 fun SurveyScreen(
     database: SurveyDatabase,
+    onComplete: () -> Unit,
     loadPrevious: Boolean = false,
-    onCompleted: () -> Unit,
+    vm: SurveyVM = viewModel { SurveyVM() },
 ) {
     val scope = rememberCoroutineScope()
-    val vm: SurveyVM = viewModel { SurveyVM() }
 
     val survey by vm.survey.collectAsState()
     val showErrors by vm.showErrors.collectAsState()
@@ -90,7 +90,7 @@ fun SurveyScreen(
                             dao = database.surveyDao(),
                             timestamp = currentTimeMillis(),
                         )
-                        onCompleted()
+                        onComplete()
                     }
                 }
             },

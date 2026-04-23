@@ -164,8 +164,8 @@ private fun QuestionText(
 private fun CheckableButton(
     text: String,
     checked: Boolean,
-    modifier: Modifier = Modifier,
     onChange: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     ToggleButton(
         checked,
@@ -194,9 +194,9 @@ private fun CheckableButton(
 @Composable
 private fun CheckableButtons(
     options: List<String>,
-    modifier: Modifier = Modifier,
     isChecked: (Int) -> Boolean,
     onChange: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     FlowRow(
         maxItemsInEachRow = 5,
@@ -208,8 +208,9 @@ private fun CheckableButtons(
             CheckableButton(
                 text = option,
                 checked = isChecked(index),
+                onChange = { onChange(index) },
                 modifier = Modifier.fillMaxRowHeight().weight(1f),
-            ) { onChange(index) }
+            )
         }
     }
 }
@@ -224,12 +225,12 @@ private fun Checkboxes(
 ) {
     CheckableButtons(
         options = options,
-        modifier = modifier,
         isChecked = { answers.contains(it) },
         onChange =
             onChange?.let {
                 { index -> onChange(if (answers.contains(index)) (answers - index) else (answers + index)) }
             } ?: {},
+        modifier = modifier,
     )
 }
 
@@ -243,9 +244,9 @@ private fun RadioButtonGroup(
 ) {
     CheckableButtons(
         options = options,
-        modifier = modifier,
         isChecked = { it == answer },
         onChange = onChange ?: {},
+        modifier = modifier,
     )
 }
 
